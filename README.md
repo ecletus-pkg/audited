@@ -1,2 +1,2 @@
 # audited
-Audited Plugin for Aghape Framework
+Audited Plugin for Ecletus Framework

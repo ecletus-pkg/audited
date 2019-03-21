@@ -3,12 +3,12 @@ package audited
 import (
 	"fmt"
 
-	"github.com/aghape/roles"
+	"github.com/ecletus/roles"
 
 	"github.com/moisespsena/go-path-helpers"
 
-	"github.com/aghape/admin"
-	"github.com/aghape/core/resource"
+	"github.com/ecletus/admin"
+	"github.com/ecletus/core/resource"
 	"github.com/moisespsena-go/aorm"
 )
 
