@@ -5,7 +5,7 @@ import (
 
 	"github.com/ecletus/roles"
 
-	"github.com/moisespsena/go-path-helpers"
+	"github.com/moisespsena-go/path-helpers"
 
 	"github.com/ecletus/admin"
 	"github.com/ecletus/core/resource"
