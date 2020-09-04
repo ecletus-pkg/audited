@@ -31,7 +31,7 @@ type Audited struct {
 func (a *Audited) Setup(res *admin.Resource) *admin.Resource {
 	_ = res.Value.(aorm.ModelWithVirtualFields)
 	scope := res.FakeScope
-	userMS := a.User.FakeScope.GetModelStruct()
+	userMS := a.User.FakeScope.ModelStruct()
 	fCreator := scope.SetVirtualField("Creator", a.User.Value)
 	fCreator.LocalFieldName = "CreatedByID"
 	res.Meta(&admin.Meta{
@@ -64,7 +64,7 @@ func (a *Audited) Setup(res *admin.Resource) *admin.Resource {
 
 	_ = res.OnDBAction(func(e *resource.DBEvent) {
 		if a.Permission != nil {
-			userID, _ := e.DB().GetCurrentUserID()
+			userID := e.DB().GetCurrentUserID()
 			if !a.Permission.HasPermissionS(pShowAll, e.Context.Roles...) {
 				e.SetDB(e.DB().Where(aorm.IQ("{}.created_by_id = ?"), userID))
 			}
@@ -76,7 +76,7 @@ func (a *Audited) Setup(res *admin.Resource) *admin.Resource {
 			query := fmt.Sprintf("{}.%s = %s.created_by_id", userMS.PrimaryFields[0].DBName, info.ParentScope.TableName())
 			replace(aorm.IQ(query))
 			if a.FilterByUpdater {
-				userID, _ := scope.GetCurrentUserID()
+				userID := scope.GetCurrentUserID()
 				if a.FilterByUpdater {
 					info.Conditions.Where("updated_by_id = ?", userID)
 				}
